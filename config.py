@@ -32,7 +32,8 @@ class Bot_luis_app_and_insights_configuration:
     # LUIS_API_HOST_NAME = os.environ.get("LuisAPIHostName","p10-luis.cognitiveservices.azure.com")
     
     APPINSIGHTS_INSTRUMENTATION_KEY = os.environ.get(
-        "AppInsightsInstrumentationKey", "a8995314-2a9d-4720-b3ad-cba0cbd2258c"
+        "AppInsightsInstrumentationKey", "d546dc50-469e-4f4b-abc6-2f30577a7572"
+        # "AppInsightsInstrumentationKey", "a8995314-2a9d-4720-b3ad-cba0cbd2258c"
     )
     
     
