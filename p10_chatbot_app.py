@@ -169,4 +169,9 @@ if __name__ == "__main__":
 #
 # gunicorn --bind 0.0.0.0 --worker-class aiohttp.worker.GunicornWebWorker --timeout 600 -P 3978 app:APP
 
-# python -m aiohttp.web -H 0.0.0.0 -P 8000 app:fx_init_app
+# python -m aiohttp.web -H 0.0.0.0 -P 8000 p10_chatbot_app:fx_init_app
+
+
+# 022-12-16T12:06:13.469436029Z usage: aiohttp.web [-h] [-H HOSTNAME] [-P PORT] [-U PATH] entry-func
+# 2022-12-16T12:06:13.469501527Z aiohttp.web: error: unable to import p10_chatbot_app.py: No module named 'p10_chatbot_app.py'; 'p10_chatbot_app' is not a package
+# 2022-12-16T12:06:13.476125266Z INFO: [AdapterWithErrorHandler : instatiated] nb =  1
