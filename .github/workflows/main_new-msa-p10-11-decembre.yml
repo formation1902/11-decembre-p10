@@ -35,7 +35,7 @@ jobs:
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
       - name: msa-p10-Test with unittest
         run: |
-          pip install unittest
+          pip install unittest2
           python -m unittest p10_unit_tests/p10_unit_tests.py 
 
       - name: Upload artifact for deployment jobs
