@@ -21,14 +21,14 @@ class Bot_luis_app_and_insights_configuration:
     
     APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "")
     
-    LUIS_APP_ID = os.environ.get("LuisAppId","fa851bde-e539-4c83-b9ef-2f36ca8e1b44")
+    LUIS_APP_ID = os.environ.get("LuisAppId","877689f4-e2c4-42ca-bfad-ef1b8f089840")
     
     LUIS_API_KEY = os.environ.get("LuisAPIKey","898a47800608435ea33ccde7f880abc5")
     
     LUIS_API_HOST_NAME = os.environ.get("LuisAPIHostName","p10-luis-authoring.cognitiveservices.azure.com/")
+    
     # 
     # LUIS_API_HOST_NAME = os.environ.get("LuisAPIHostName","westeurope.api.cognitive.microsoft.com")
-
     # LUIS_API_HOST_NAME = os.environ.get("LuisAPIHostName","p10-luis.cognitiveservices.azure.com")
     
     APPINSIGHTS_INSTRUMENTATION_KEY = os.environ.get(

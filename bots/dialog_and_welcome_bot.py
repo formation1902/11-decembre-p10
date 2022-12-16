@@ -42,16 +42,19 @@ class DialogAndWelcomeBot(DialogBot):
             # Greet when users are added to the conversation.
             # To learn more about Adaptive Cards, see https://aka.ms/msbot-adaptivecards
             if member.id != turn_context.activity.recipient.id :
+                print("\nINFO: [ DialogAndWelcomeBot - on_members_added_activity ] new member, member_id == ",member.id)
+                
                 welcome_card = self.create_adaptive_card_attachment()
                 response = self.create_response(turn_context.activity, welcome_card)
-                print("\nINFO: [on_members_added_activity - on_members_added_activity ] 2_1............... new member.id : ",member.id)
-                await turn_context.send_activity(response)
-                print("\nINFO: [on_members_added_activity - on_members_added_activity ] 2_2............... new member.id : ",member.id)
                 
+                print("INFO: [ DialogAndWelcomeBot - on_members_added_activity ] 1. sending card to new member")
+                await turn_context.send_activity(response)
+                                
+                print("INFO: [ DialogAndWelcomeBot - on_members_added_activity ] 2. sending welcome messages")
                 await turn_context.send_activity(
                     f"Hi there { member.name }. " + DialogAndWelcomeBot.WELCOME_MESSAGE
                 )
-                print("\nINFO: [on_members_added_activity - on_members_added_activity ] 2_3............... new member.id : ",member.id)
+                print("INFO: [ DialogAndWelcomeBot - on_members_added_activity ] 3. greeting done")
                 
                 
                 

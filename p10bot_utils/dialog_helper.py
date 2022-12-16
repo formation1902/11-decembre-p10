@@ -12,6 +12,7 @@ class DialogHelper:
         #
         # Executer le dialog
         #
+        
         dialog_set = DialogSet(accessor)
         
         dialog_set.add(dialog)
@@ -21,4 +22,5 @@ class DialogHelper:
         results = await dialog_context.continue_dialog()
         
         if results.status == DialogTurnStatus.Empty:
+            print("#\n# INFO [ DialogHelper - run_dialog ] begin_dialog after results empty status\n#\n")
             await dialog_context.begin_dialog(dialog.id)

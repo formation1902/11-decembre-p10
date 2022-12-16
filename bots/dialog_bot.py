@@ -42,7 +42,7 @@ class DialogBot(ActivityHandler):
         #
         #
         #
-        print("\nINFO: [DialogBot - on_message_activity ] 1 - DialogExtensions.run_dialog ............... turn_context : ",turn_context.activity)
+        print("\nINFO: [DialogBot - on_message_activity ] 1.1 - DialogExtensions.run_dialog ............... \n\t - turn_context.activity == ",turn_context.activity)
         
         await DialogExtensions.run_dialog(
             self.dialog,
@@ -51,7 +51,7 @@ class DialogBot(ActivityHandler):
         )
         
         
-        print("\nINFO: [DialogBot - on_message_activity ] 1 - after run_dialog ............. turn_context : ",turn_context.activity)
+        print("\nINFO: [DialogBot - on_message_activity ] 1.2 - after run_dialog ............. \n\t - turn_context.activity == ",turn_context.activity)
 
         # Save any state changes that might have occured during the turn.
         #
@@ -59,7 +59,7 @@ class DialogBot(ActivityHandler):
         #
         await self.conversation_state.save_changes(turn_context, False)
         await self.user_state.save_changes(turn_context, False)
-        print("\nINFO: [DialogBot - on_message_activity ] 3............... turn_context : ",turn_context.activity)
+        print("\nINFO: [DialogBot - on_message_activity ] 2. Converstation and user states saved\n\t - turn_context.activity == ",turn_context.activity)
 
     @property
     def telemetry_client(self) -> BotTelemetryClient:

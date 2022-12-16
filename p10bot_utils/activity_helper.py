@@ -6,6 +6,7 @@ from datetime import datetime
 from botbuilder.schema import Activity, ActivityTypes
 from botbuilder.schema import ChannelAccount
 from botbuilder.schema import ConversationAccount
+from datetime import datetime
 
 
 def create_activity_reply(activity: Activity, text: str = None, locale: str = None):
@@ -41,5 +42,5 @@ def create_activity_reply(activity: Activity, text: str = None, locale: str = No
         entities=[],
     )
     print("\t ---> [Activity-HELPER : create_activity_reply] reply = ",reply)
-    print("INFO : [Activity-HELPER : create_activity_reply] return")
+    print("INFO : [Activity-HELPER : create_activity_reply] done")
     return reply
