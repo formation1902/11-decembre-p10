@@ -83,4 +83,80 @@ class TestP10(unittest.TestCase):
         
         
         
-      
+        
+        
+        
+    def fx_test_luis_intent(self):
+        clientRuntime = LUISRuntimeClient(
+            'https://p10-luis-authoring.cognitiveservices.azure.com/', 
+            # 'https://westeurope.api.cognitive.microsoft.com',
+            CognitiveServicesCredentials(self.CONFIG.LUIS_API_KEY)
+        )
+    
+        query ='From Paris to berlin leaving just right now coming back Decembre 31 1999, for a maximum budget of 51 euros'
+    
+        response = clientRuntime.prediction.resolve(self.CONFIG.LUIS_APP_ID, query=query)
+
+        intention_attendue = 'intention_reserver_un_billet_d_avion'
+        luis_top_intent = response.top_scoring_intent.intent
+        
+        print("Detected entities:")
+        for entity in response.entities:
+            print("\t-> Entity '{}' (type: {}, score:{:d}%)".format(
+                entity.entity,
+                entity.type,
+                int(entity.additional_properties['score']*100)
+            ))
+        print("\nComplete result object as dictionnary")
+        pprint(response.as_dict())
+        
+        assert intention_attendue == luis_top_intent
+    
+    
+    
+    
+    # import json
+    # import os.path
+    # from pprint import pprint
+    # SUBSCRIPTION_KEY_ENV_NAME = "LUIS_SUBSCRIPTION_KEY"
+    # CWD = os.path.dirname(__file__)
+
+
+    # def runtime(subscription_key):
+    #     client = LUISRuntimeClient(
+    #         'https://westus.api.cognitive.microsoft.com',
+    #         CognitiveServicesCredentials(subscription_key),
+    #     )
+
+    #     try:
+    #         query = "Look for hotels near LAX airport"
+    #         print("Executing query: {}".format(query))
+    #         result = client.prediction.resolve(
+    #             "bce13896-4de3-4783-9696-737d8fde8cd1",  # LUIS Application ID
+    #             query
+    #         )
+
+    #         print("\nDetected intent: {} (score: {:d}%)".format(
+    #             result.top_scoring_intent.intent,
+    #             int(result.top_scoring_intent.score*100)
+    #         ))
+    #         print("Detected entities:")
+    #         for entity in result.entities:
+    #             print("\t-> Entity '{}' (type: {}, score:{:d}%)".format(
+    #                 entity.entity,
+    #                 entity.type,
+    #                 int(entity.additional_properties['score']*100)
+    #             ))
+    #         print("\nComplete result object as dictionnary")
+    #         pprint(result.as_dict())
+
+    #     except Exception as err:
+    #         print("Encountered exception. {}".format(err))
+
+
+    # if __name__ == "__main__":
+    #     import sys
+    #     import os.path
+    #     sys.path.append(os.path.abspath(os.path.join(__file__, "..", "..")))
+    #     from tools import execute_samples
+    #     execute_samples(globals(), SUBSCRIPTION_KEY_ENV_NAME)

@@ -36,7 +36,7 @@ jobs:
       - name: msa-p10-Test with unittest
         run: |
           pip install unittest2
-          pip install opencensus
+          python -m pip install opencensus-ext-azure
           python -m unittest p10_unit_tests/p10_unit_tests.py 
 
       - name: Upload artifact for deployment jobs
