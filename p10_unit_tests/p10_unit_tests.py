@@ -88,8 +88,9 @@ class TestP10(unittest.TestCase):
             )
 
             # ---> Logging :  Code for enabling activity and personal information logging.
-            TELEMETRY_CLIENT.track_trace("TELEMETRY_CLIENT - test before build - activated by git actions")
-            TELEMETRY_CLIENT.flush()
+            TELEMETRY_CLIENT.track_trace("TELEMETRY_CLIENT - short message")
+            x = TELEMETRY_CLIENT.flush()
+            print(" x = ",x)
         except:
             self.assertIsNot(True, True)
         

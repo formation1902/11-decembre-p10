@@ -215,10 +215,13 @@ class ReservationDialog(CancelAndHelpDialog):
         x = step_context.options
         confirmation = step_context.result
 
+        print("type telemtry_client : ",type(self.telemetry_client))
         if confirmation:
-            self.telemetry_client.track_trace("'Good little chatbot...Your though has been validated by le client roi!")
+            print("\n\n\n-------------> Good little chatbot\n\n\n")
+            self.telemetry_client.track_trace("Good little chatbot...Your though has been validated by le client roi!",severity='INFO')
         else:
-            self.telemetry_client.track_trace("'Bad little chatbot...Your though hasn't been validated by le client roi! is it ?")
+            print("\n\n\n-------------> Bad little chatbot\n\n\n")
+            self.telemetry_client.track_trace("'Bad little chatbot...Your though hasn't been validated by le client roi! is it ?",severity='CRITICAL')
         
         self.telemetry_client.flush()
         return await step_context.end_dialog()    
