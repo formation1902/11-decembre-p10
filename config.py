@@ -21,7 +21,7 @@ class Bot_luis_app_and_insights_configuration:
     
     APP_PASSWORD = os.environ.get("MicrosoftAppPassword", "")
     
-    LUIS_APP_ID = os.environ.get("LuisAppId","877689f4-e2c4-42ca-bfad-ef1b8f089840")
+    LUIS_APP_ID = os.environ.get("LuisAppId","9159a5e0-246d-4723-9fd1-865fdd18d709")
     
     LUIS_API_KEY = os.environ.get("LuisAPIKey","898a47800608435ea33ccde7f880abc5")
     

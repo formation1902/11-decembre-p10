@@ -175,3 +175,16 @@ if __name__ == "__main__":
 # 022-12-16T12:06:13.469436029Z usage: aiohttp.web [-h] [-H HOSTNAME] [-P PORT] [-U PATH] entry-func
 # 2022-12-16T12:06:13.469501527Z aiohttp.web: error: unable to import p10_chatbot_app.py: No module named 'p10_chatbot_app.py'; 'p10_chatbot_app' is not a package
 # 2022-12-16T12:06:13.476125266Z INFO: [AdapterWithErrorHandler : instatiated] nb =  1
+
+
+# customEvents
+# | where customDimensions['text'] == 'No'
+# | summarize AggregatedValue=count() by bin(timestamp, 1m)
+
+# {
+#     "activityId":"0f29b6b0-7d49-11ed-84e7-7505ed90b334",
+#     "activityType":"message","channelId":"emulator",
+#     "fromId":"e66a6bec-0adb-43b9-8164-5e66ba1acba0",
+#     "fromName":"User","locale":"en-US","recipientId":"ea251710-7d48-11ed-89c4-b5a62ee1fd78","recipientName":"Bot",
+#     "text":"No"
+# }

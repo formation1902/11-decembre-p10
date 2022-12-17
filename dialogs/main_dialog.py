@@ -133,7 +133,7 @@ class MainDialog(ComponentDialog):
             message = MessageFactory.text(msg_txt, msg_txt, InputHints.ignoring_input)
             await step_context.context.send_activity(message)
 
-        prompt_message = "Goodbye"
+        prompt_message = "What else can I do for you?"
         return await step_context.replace_dialog(self.id, prompt_message)
         
 

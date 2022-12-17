@@ -213,6 +213,7 @@ def get_utterances_for_test(data=df_test,entities=entities):
 data = get_utterances_for_test()
 # print(json.dumps(data[0],indent=2))
 # print(json.dumps(data[1],indent=2))
+
 with open('model_data/utterances_for_test.json','w') as f:
     f.write('[\n')
     l=[]

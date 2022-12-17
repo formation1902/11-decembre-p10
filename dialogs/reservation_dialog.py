@@ -10,12 +10,17 @@ from botbuilder.core            import MessageFactory, BotTelemetryClient, NullT
 from .cancel_and_help_dialog    import CancelAndHelpDialog
 from .date_resolver_dialog      import DateResolverDialog,DateResolverDialogRetour
 
+from opencensus.ext.azure.log_exporter import AzureLogHandler
+import logging
 
 class ReservationDialog(CancelAndHelpDialog):
     #
     #
     #
     nb = 0
+    logger = logging.getLogger(__name__)
+    connect_str = "InstrumentationKey=d546dc50-469e-4f4b-abc6-2f30577a7572;IngestionEndpoint=https://centralus-0.in.applicationinsights.azure.com/;LiveEndpoint=https://centralus.livediagnostics.monitor.azure.com/"
+    logger.addHandler(AzureLogHandler(connection_string=connect_str))
     def __init__( self, dialog_id: str = None, telemetry_client: BotTelemetryClient = NullTelemetryClient()):
         ReservationDialog.nb+=1
         print("INFO :[ ReservationDialog : Instantiated ] nb = ",ReservationDialog.nb)
@@ -211,11 +216,10 @@ class ReservationDialog(CancelAndHelpDialog):
         confirmation = step_context.result
 
         if confirmation:
+            ReservationDialog.logger.info('Good little chatbot...Yes answer!')
             return await step_context.end_dialog(x)
         else:
-            #
-            # Ici, il faut tous recommencer
-            #
+            ReservationDialog.logger.info('Bad little chatbot...No answer!')
             return await step_context.end_dialog()
 
     def is_ambiguous(self, timex: str) -> bool:

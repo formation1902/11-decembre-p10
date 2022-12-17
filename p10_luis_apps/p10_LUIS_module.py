@@ -293,7 +293,7 @@ class Project10():
         # entete(" Contenu des utterances :" + str(len(utterances)))      
         
         n1 = len(utterances) // 100
-        n2 = len(utterances) % 100
+        n2 = len(utterances) % 100 + 1
         print("\n\n---------------- temoin utterances = to ",n2)
         utterances_result = self.luis_authoring_client.examples.batch(
             app_id,
