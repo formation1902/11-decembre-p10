@@ -40,6 +40,7 @@ if __name__=='__main__':
     msaCondition   = "initialisation"
     # msaCondition = "train_after_update"
     # msaCondition   = 'test_trained_active_model'
+    
     if msaCondition == "initialisation":
         print('Initialisation des environnements LUIS : ')
         my_project._all_delete()

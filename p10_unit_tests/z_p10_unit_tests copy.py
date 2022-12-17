@@ -12,6 +12,12 @@ import logging
 from azure.cognitiveservices.language.luis.runtime import LUISRuntimeClient
 from msrest.authentication import CognitiveServicesCredentials
 
+from botbuilder.core    import TelemetryLoggerMiddleware
+from botbuilder.applicationinsights                     import ApplicationInsightsTelemetryClient
+from botbuilder.integration.applicationinsights.aiohttp import AiohttpTelemetryProcessor
+
+
+
 import requests
 
 
@@ -86,33 +92,49 @@ class TestP10(unittest.TestCase):
         
         
         
-    def fx_test_luis_intent(self):
-        clientRuntime = LUISRuntimeClient(
-            'https://p10-luis-authoring.cognitiveservices.azure.com/', 
-            # 'https://westeurope.api.cognitive.microsoft.com',
-            CognitiveServicesCredentials(self.CONFIG.LUIS_API_KEY)
-        )
+    # def fx_test_luis_intent(self):
+    #     clientRuntime = LUISRuntimeClient(
+    #         'https://p10-luis-authoring.cognitiveservices.azure.com/', 
+    #         # 'https://westeurope.api.cognitive.microsoft.com',
+    #         CognitiveServicesCredentials(self.CONFIG.LUIS_API_KEY)
+    #     )
     
-        query ='From Paris to berlin leaving just right now coming back Decembre 31 1999, for a maximum budget of 51 euros'
+    #     query ='From Paris to berlin leaving just right now coming back Decembre 31 1999, for a maximum budget of 51 euros'
     
-        response = clientRuntime.prediction.resolve(self.CONFIG.LUIS_APP_ID, query=query)
+    #     response = clientRuntime.prediction.resolve(self.CONFIG.LUIS_APP_ID, query=query)
 
-        intention_attendue = 'intention_reserver_un_billet_d_avion'
-        luis_top_intent = response.top_scoring_intent.intent
+    #     intention_attendue = 'intention_reserver_un_billet_d_avion'
+    #     luis_top_intent = response.top_scoring_intent.intent
         
-        print("Detected entities:")
-        for entity in response.entities:
-            print("\t-> Entity '{}' (type: {}, score:{:d}%)".format(
-                entity.entity,
-                entity.type,
-                int(entity.additional_properties['score']*100)
-            ))
-        print("\nComplete result object as dictionnary")
-        pprint(response.as_dict())
+    #     print("Detected entities:")
+    #     for entity in response.entities:
+    #         print("\t-> Entity '{}' (type: {}, score:{:d}%)".format(
+    #             entity.entity,
+    #             entity.type,
+    #             int(entity.additional_properties['score']*100)
+    #         ))
+    #     print("\nComplete result object as dictionnary")
+    #     pprint(response.as_dict())
         
-        assert intention_attendue == luis_top_intent
+    #     assert intention_attendue == luis_top_intent
     
     
+    def test_telemetry(self):
+        print("Testing telemetry")
+        try:
+            INSTRUMENTATION_KEY = self.CONFIG.APPINSIGHTS_INSTRUMENTATION_KEY
+
+
+            TELEMETRY_CLIENT = ApplicationInsightsTelemetryClient(
+                INSTRUMENTATION_KEY, 
+                telemetry_processor=AiohttpTelemetryProcessor(), 
+                client_queue_size=10
+            )
+
+            # ---> Logging :  Code for enabling activity and personal information logging.
+            TELEMETRY_LOGGER_MIDDLEWARE = TelemetryLoggerMiddleware(telemetry_client=TELEMETRY_CLIENT, log_personal_information=True)
+        except:
+            self.assertIsNot(True, True)
     
     
     # import json

@@ -216,11 +216,12 @@ class ReservationDialog(CancelAndHelpDialog):
         confirmation = step_context.result
 
         if confirmation:
-            ReservationDialog.logger.info('Good little chatbot...Yes answer!')
-            return await step_context.end_dialog(x)
+            self.telemetry_client.track_trace("'Good little chatbot...Your though has been validated by le client roi!")
         else:
-            ReservationDialog.logger.info('Bad little chatbot...No answer!')
-            return await step_context.end_dialog()
+            self.telemetry_client.track_trace("'Bad little chatbot...Your though hasn't been validated by le client roi! is it ?")
+        
+        self.telemetry_client.flush()
+        return await step_context.end_dialog()    
 
     def is_ambiguous(self, timex: str) -> bool:
         """Ensure time is correct."""

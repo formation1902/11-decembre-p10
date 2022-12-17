@@ -12,6 +12,10 @@ import logging
 from azure.cognitiveservices.language.luis.runtime import LUISRuntimeClient
 from msrest.authentication import CognitiveServicesCredentials
 
+from botbuilder.core    import TelemetryLoggerMiddleware
+from botbuilder.applicationinsights                     import ApplicationInsightsTelemetryClient
+from botbuilder.integration.applicationinsights.aiohttp import AiohttpTelemetryProcessor
+
 import requests
 
 
@@ -29,24 +33,11 @@ class TestP10(unittest.TestCase):
     def test_config_is_ok(self):
         self.assertEqual(self.CONFIG.PORT,3978)
         self.assertEqual(self.CONFIG.LUIS_API_HOST_NAME,"p10-luis-authoring.cognitiveservices.azure.com/")
-        self.assertEqual(self.CONFIG.LUIS_API_KEY,"898a47800608435ea33ccde7f880abc5")
-        
         
     def test_recognizer_is_configured(self):
         self.assertTrue(Reserver_un_billet_d_avion_Recognizer(self.CONFIG).is_configured)
 
-
-    def test_AppInsights_connexion(self):
-        try:
-            logger = logging.getLogger(__name__)
-            connect_str = "InstrumentationKey=d546dc50-469e-4f4b-abc6-2f30577a7572;IngestionEndpoint=https://centralus-0.in.applicationinsights.azure.com/;LiveEndpoint=https://centralus.livediagnostics.monitor.azure.com/"
-            logger.addHandler(AzureLogHandler(connection_string=connect_str))
-            logger.info('\n\n------------------------------------- local chatbot application started\n\n')
-        except:
-            self.assertIsNot(True, True)
-
     def test_luis(self):
-        msaApiEndPoint = "https://msa-p10-luis-prediction.cognitiveservices.azure.com/luis/prediction/v3.0/apps/877689f4-e2c4-42ca-bfad-ef1b8f089840/slots/production/predict?verbose=true&show-all-intents=true&log=true&subscription-key=34f7bed36b224282b7a725375beabe6b&query="
         msaApiEndPoint = "https://msa-p10-luis-prediction.cognitiveservices.azure.com/luis/prediction/v3.0/apps/9159a5e0-246d-4723-9fd1-865fdd18d709/slots/production/predict?verbose=true&show-all-intents=true&log=true&subscription-key=34f7bed36b224282b7a725375beabe6b&query="
         query ='I would like a vacation for one. Depart from Paris to London between August 17 to September 7 and it should cost less than $3000 '
         
@@ -84,5 +75,22 @@ class TestP10(unittest.TestCase):
             self.assertIsNot(True, True)
         
         
+    def test_telemetry(self):
+        print("Testing telemetry")
+        try:
+            INSTRUMENTATION_KEY = self.CONFIG.APPINSIGHTS_INSTRUMENTATION_KEY
+
+
+            TELEMETRY_CLIENT = ApplicationInsightsTelemetryClient(
+                INSTRUMENTATION_KEY, 
+                telemetry_processor=AiohttpTelemetryProcessor(), 
+                client_queue_size=10
+            )
+
+            # ---> Logging :  Code for enabling activity and personal information logging.
+            TELEMETRY_CLIENT.track_trace("TELEMETRY_CLIENT - test before build - activated by git actions")
+            TELEMETRY_CLIENT.flush()
+        except:
+            self.assertIsNot(True, True)
         
-# {"activityId":"340268f0-7cc8-11ed-88a8-31f87dfbab1f","activityType":"message","channelId":"emulator","fromId":"08bbd904-df4c-43ad-904e-e8ba0880109b","fromName":"User","locale":"en-US","recipientId":"1a98d340-7cc8-11ed-b01f-8519a79807a5","recipientName":"Bot","text":"No"}
+        
