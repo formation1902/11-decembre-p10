@@ -18,9 +18,6 @@ class ReservationDialog(CancelAndHelpDialog):
     #
     #
     nb = 0
-    logger = logging.getLogger(__name__)
-    connect_str = "InstrumentationKey=d546dc50-469e-4f4b-abc6-2f30577a7572;IngestionEndpoint=https://centralus-0.in.applicationinsights.azure.com/;LiveEndpoint=https://centralus.livediagnostics.monitor.azure.com/"
-    logger.addHandler(AzureLogHandler(connection_string=connect_str))
     def __init__( self, dialog_id: str = None, telemetry_client: BotTelemetryClient = NullTelemetryClient()):
         ReservationDialog.nb+=1
         print("INFO :[ ReservationDialog : Instantiated ] nb = ",ReservationDialog.nb)
@@ -56,6 +53,7 @@ class ReservationDialog(CancelAndHelpDialog):
         self.initial_dialog_id = WaterfallDialog.__name__
 
     async def fx_ville_depart_step(self, step_context: WaterfallStepContext) -> DialogTurnResult:
+        # print("\n\n\n--------> step_context == ",step_context.activity,"\n\n")::mentors is bullshit <je decouvre ce besoin le 18 decembre au detour d'une reflexion >
         #
         # on recupere le context  :  
         # 

@@ -46,6 +46,7 @@ TELEMETRY_CLIENT = ApplicationInsightsTelemetryClient(
     telemetry_processor=AiohttpTelemetryProcessor(), 
     client_queue_size=10
 )
+TELEMETRY_CLIENT.track_trace("Starting the chatbot...",severity='INFO')
 
 # ---> Logging :  Code for enabling activity and personal information logging.
 TELEMETRY_LOGGER_MIDDLEWARE = TelemetryLoggerMiddleware(telemetry_client=TELEMETRY_CLIENT, log_personal_information=True)

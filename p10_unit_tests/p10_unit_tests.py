@@ -78,20 +78,20 @@ class TestP10(unittest.TestCase):
     def test_telemetry(self):
         print("Testing telemetry")
         try:
+            # d546dc50-469e-4f4b-abc6-2f30577a7572
             INSTRUMENTATION_KEY = self.CONFIG.APPINSIGHTS_INSTRUMENTATION_KEY
-
+            print("d546dc50-469e-4f4b-abc6-2f30577a7572 : ",INSTRUMENTATION_KEY)
 
             TELEMETRY_CLIENT = ApplicationInsightsTelemetryClient(
-                INSTRUMENTATION_KEY, 
+                # INSTRUMENTATION_KEY, 
+                "d546dc50-aaaa-aaaa-abc6-2f30577a9972",
                 telemetry_processor=AiohttpTelemetryProcessor(), 
-                client_queue_size=10
+                client_queue_size=100
             )
 
             # ---> Logging :  Code for enabling activity and personal information logging.
-            TELEMETRY_CLIENT.track_trace("TELEMETRY_CLIENT - short message")
-            x = TELEMETRY_CLIENT.flush()
-            print(" x = ",x)
+            TELEMETRY_CLIENT.track_trace("test d'acces à la ressource application insights before deployment ! ")
+            TELEMETRY_CLIENT.flush()
         except:
             self.assertIsNot(True, True)
-        
         
