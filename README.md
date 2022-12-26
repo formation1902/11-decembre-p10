@@ -7,7 +7,9 @@
 
 # cd p10_luis_apps
 $ python prep_luis_data.py 
+
 Initialisation de l'extraction des données : OK.
+
 !########################################################################################################################################### 
 !###
 !### -->  Initialisation des données :
@@ -36,9 +38,13 @@ Creer la ressource LuisAuthoring
 Renseigner le fichier application.config
 
 $ cat application.conf 
+
 authoring_endpoint = 'XX'
+
 authoring_key_1 = 'XX'
+
 authoring_key_2 = 'XX'
+
 $
 
 Lancer le script manage_luis_apps.py
